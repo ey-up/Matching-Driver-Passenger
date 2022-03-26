@@ -20,15 +20,5 @@ func main() {
 		return fiber.NewError(782, "Custom error message")
 	})
 	log.Fatal(app.Listen(":" + viper.GetString("port")))
-	/*
-		e := echo.New()
-
-		e.Use(middleware.Logger())
-		e.Use(middleware.Recover())
-
-		e.GET("/", func(c echo.Context) error {
-			return c.HTML(http.StatusOK, "Test For docker")
-		})*/
-
-	//app.Start()
+	
 }
