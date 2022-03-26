@@ -1,14 +1,12 @@
 package main
 
 import (
-	"DriverLocation/app"
 	"DriverLocation/config"
 	"fmt"
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/spf13/viper"
 	"log"
-	"net/http"
 )
 
 func main() {
@@ -16,15 +14,21 @@ func main() {
 		log.Fatalf("%s", err.Error())
 	}
 	fmt.Println(viper.GetString("port"))
-
-	e := echo.New()
-
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
-
-	e.GET("/", func(c echo.Context) error {
-		return c.HTML(http.StatusOK, "Test For docker")
+	app := fiber.New(config.NewFiberConfig())
+	app.Use(recover.New())
+	app.Get("/", func(c *fiber.Ctx) error {
+		return fiber.NewError(782, "Custom error message")
 	})
+	log.Fatal(app.Listen(":" + viper.GetString("port")))
+	/*
+		e := echo.New()
 
-	app.Start()
+		e.Use(middleware.Logger())
+		e.Use(middleware.Recover())
+
+		e.GET("/", func(c echo.Context) error {
+			return c.HTML(http.StatusOK, "Test For docker")
+		})*/
+
+	//app.Start()
 }
