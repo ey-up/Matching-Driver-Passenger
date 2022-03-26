@@ -1,21 +1,34 @@
+version: '3.1'
 services:
   app:
+    container_name: go
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
     restart: unless-stopped
+  mongo:
+    container_name: mongoDB
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data_container:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  mongo-express:
+    container_name: go-express
+    image: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
-  mongo:
-    container_name: mongo-go
-    image: mongo
-    restart: always
-    ports:
-      - 27017:27017
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+
+volumes:
+  mongodb_data_container:
