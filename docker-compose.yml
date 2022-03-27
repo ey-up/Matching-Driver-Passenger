@@ -8,6 +8,8 @@ services:
     ports:
       - "8080:8080"
     restart: unless-stopped
+    depends_on:
+      - mongo
   mongo:
     container_name: mongoDB
     image: mongo
