@@ -25,7 +25,7 @@ func Connection() *mongo.Database {
 
 	err = client.Connect(ctx)
 	exception.IsPanic(err)
-	database := client.Database("test")
+	database := client.Database(viper.GetString("database.name"))
 
 	return database
 }
