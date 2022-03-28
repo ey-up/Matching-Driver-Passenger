@@ -25,7 +25,7 @@ func Connection() *mongo.Database {
 
 	err = client.Connect(ctx)
 	exception.IsPanic(err)
-	database := client.Database("tebriks")
+	database := client.Database("test")
 
 	return database
 }
