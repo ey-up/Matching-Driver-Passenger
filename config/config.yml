@@ -1,5 +1,10 @@
 port: 8080
 appName: "BiTaksi"
 database:
-  local: "mongodb://localhost:27017"
-  docker: "mongodb://root:example@mongo:27017/"
+  local: "mongodb://root:example@localhost:27017"
+  user: "root"
+  password: "example"
+  port: 27017
+  host: "mongo"
+  name: "biTaksi"
+isLocal: true
