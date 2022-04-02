@@ -20,14 +20,20 @@ func main() {
 	}
 	database := db.Connection()
 
-	userRepository := repository.NewUserRepository(database)
-	userService := service.NewUserService(&userRepository)
-	userController := controller.NewUserController(&userService)
-
 	app := fiber.New(config.NewFiberConfig())
 	app.Use(logger.New())
 	app.Use(recover.New())
+
+	userRepository := repository.NewUserRepository(database)
+	userService := service.NewUserService(&userRepository)
+	userController := controller.NewUserController(&userService)
 	userController.Route(app)
+
+	driverRepository := repository.NewDriverRepository(database)
+	driverService := service.NewDriverService(&driverRepository)
+	driverController := controller.NewDriverController(&driverService)
+	driverController.Route(app)
+
 	//router.Route(app)
 
 	fmt.Println(viper.GetString("appName") + " app started port: " + viper.GetString("port"))
