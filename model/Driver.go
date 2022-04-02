@@ -14,8 +14,8 @@ type Driver struct {
 }
 
 type CreateDriverRequest struct {
-	Latitude   float64 `json:"Latitude"`
-	Longtitude float64 `json:"Longtitude"`
+	Latitude   float64 `json:"latitude" validate:"required,max=180,min=-180"`
+	Longtitude float64 `json:"longtitude" validate:"required,max=90,min=-90"`
 }
 
 type CreateDriverResponse struct {

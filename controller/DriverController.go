@@ -4,6 +4,7 @@ import (
 	"DriverLocation/exception"
 	"DriverLocation/model"
 	"DriverLocation/service"
+	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -32,6 +33,12 @@ func (driverController *DriverController) Create(ctx *fiber.Ctx) error {
 	var request model.CreateDriverRequest
 	err := ctx.BodyParser(&request)
 	exception.IsPanic(err)
+	validate := validator.New()
+	err = validate.Struct(request)
+	requestControl, err := exception.DriverCreateRequestException(err)
+	if err != nil {
+		return ctx.JSON(requestControl)
+	}
 	response := driverController.DriverService.Create(request)
 	return ctx.JSON(model.WebResponse{
 		Code:   200,
