@@ -6,9 +6,10 @@ import (
 
 type Driver struct {
 	Id          primitive.ObjectID
-	Latitude    float64 `csv:"Latitude"`
-	Longtitude  float64 `csv:"Longtitude"`
+	Latitude    float64
+	Longtitude  float64
 	HasCustomer bool
+	IsActive    bool
 	CreatedDate string
 }
 
@@ -22,5 +23,6 @@ type CreateDriverResponse struct {
 	Latitude    float64            `json:"latitude"`
 	Longtitude  float64            `json:"longtitude"`
 	HasCustomer bool               `json:"hasCustomer"`
+	IsActive    bool               `json:"isActive"`
 	CreatedDate string             `json:"createDate"`
 }

@@ -21,14 +21,16 @@ func (d driverService) Create(request model.CreateDriverRequest) (response model
 		Latitude:    request.Latitude,
 		Longtitude:  request.Longtitude,
 		HasCustomer: false,
+		IsActive:    true,
 		CreatedDate: strconv.FormatInt(time.Now().UnixMilli(), 10),
 	}
 	id := d.driverRepository.Create(driver)
 	response = model.CreateDriverResponse{
 		Id:          id,
-		HasCustomer: driver.HasCustomer,
 		Latitude:    driver.Latitude,
 		Longtitude:  driver.Longtitude,
+		HasCustomer: driver.HasCustomer,
+		IsActive:    driver.IsActive,
 		CreatedDate: driver.CreatedDate,
 	}
 	return response

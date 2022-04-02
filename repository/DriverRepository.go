@@ -24,6 +24,7 @@ func (d driverRepository) Create(user model.Driver) primitive.ObjectID {
 		"longtitude":  user.Longtitude,
 		"latitude":    user.Latitude,
 		"hasCustomer": user.HasCustomer,
+		"isActive":    user.IsActive,
 		"createDate":  user.CreatedDate,
 	})
 	exception.IsPanic(err)
@@ -31,5 +32,5 @@ func (d driverRepository) Create(user model.Driver) primitive.ObjectID {
 }
 
 func NewDriverRepository(database *mongo.Database) DriverRepository {
-	return &driverRepository{Collection: database.Collection("asd")}
+	return &driverRepository{Collection: database.Collection("driver")}
 }
