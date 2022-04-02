@@ -19,6 +19,15 @@ func (driverController DriverController) Route(app *fiber.App) {
 	app.Post("/api/driver", driverController.Create)
 }
 
+// Create ShowAccount godoc
+// @Summary Show a driver
+// @Description Create a new driver
+// @Accept  json
+// @Param        driver  body      model.CreateDriverRequest  true  "Add Driver"
+// @Produce  json
+// @Success 200 {object} model.WebResponse
+// @Failure 400 {object} model.WebResponse
+// @Router /api/driver [post]
 func (driverController *DriverController) Create(ctx *fiber.Ctx) error {
 	var request model.CreateDriverRequest
 	err := ctx.BodyParser(&request)

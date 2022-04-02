@@ -4,9 +4,11 @@ import (
 	"DriverLocation/config"
 	"DriverLocation/controller"
 	"DriverLocation/db"
+	_ "DriverLocation/docs"
 	"DriverLocation/repository"
 	"DriverLocation/service"
 	"fmt"
+	fiberSwagger "github.com/arsmn/fiber-swagger/v2"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
@@ -14,6 +16,13 @@ import (
 	"log"
 )
 
+// @title BiTaksi
+// @version 2.0
+// @termsOfService http://swagger.io/terms/
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+// @host localhost:8080
+// @BasePath /
 func main() {
 	if err := config.LoadConfig(); err != nil {
 		log.Fatalf("%s", err.Error())
@@ -23,6 +32,7 @@ func main() {
 	app := fiber.New(config.NewFiberConfig())
 	app.Use(logger.New())
 	app.Use(recover.New())
+	app.Get("/swagger/*", fiberSwagger.HandlerDefault)
 
 	userRepository := repository.NewUserRepository(database)
 	userService := service.NewUserService(&userRepository)

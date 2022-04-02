@@ -16,7 +16,7 @@ type driverService struct {
 }
 
 func (d driverService) Create(request model.CreateDriverRequest) (response model.CreateDriverResponse) {
-	// validasyon
+	// todo: validation
 	driver := model.Driver{
 		Latitude:    request.Latitude,
 		Longtitude:  request.Longtitude,

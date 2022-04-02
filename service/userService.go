@@ -3,6 +3,7 @@ package service
 import (
 	"DriverLocation/model"
 	"DriverLocation/repository"
+	"strconv"
 	"time"
 )
 
@@ -25,11 +26,11 @@ func (u userService) Create(request model.CreateUserRequest) (response model.Cre
 	user := model.User{
 		Name:      request.Name,
 		Email:     request.Email,
-		CreatedAt: time.Now(),
+		CreatedAt: strconv.FormatInt(time.Now().UnixMilli(), 10),
 	}
-	u.UserRepository.Insert(user)
+	id := u.UserRepository.Insert(user)
 	response = model.CreateUserResponse{
-		Id:        user.Id,
+		Id:        id,
 		Name:      user.Name,
 		Email:     user.Email,
 		CreatedAt: user.CreatedAt,

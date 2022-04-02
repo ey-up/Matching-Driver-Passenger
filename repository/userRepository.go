@@ -4,25 +4,25 @@ import (
 	"DriverLocation/db"
 	"DriverLocation/exception"
 	"DriverLocation/model"
-	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type UserRepository interface {
-	Insert(user model.User)
+	Insert(user model.User) primitive.ObjectID
 }
 
-type userService struct {
+type userRepository struct {
 	Collection *mongo.Collection
 }
 
 func NewUserRepository(db *mongo.Database) UserRepository {
-	return &userService{
+	return &userRepository{
 		Collection: db.Collection("users"),
 	}
 }
-func (u userService) Insert(user model.User) {
+func (u userRepository) Insert(user model.User) primitive.ObjectID {
 	ctx, cancel := db.NewMongoContext()
 	defer cancel()
 
@@ -31,6 +31,6 @@ func (u userService) Insert(user model.User) {
 		"email":     user.Email,
 		"createdAt": user.CreatedAt,
 	})
-	fmt.Println(result.InsertedID)
 	exception.IsPanic(err)
+	return result.InsertedID.(primitive.ObjectID)
 }
