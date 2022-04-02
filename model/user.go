@@ -2,14 +2,13 @@ package model
 
 import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"time"
 )
 
 type User struct {
 	Id        primitive.ObjectID
 	Name      string
 	Email     string
-	CreatedAt time.Time
+	CreatedAt string
 }
 
 type CreateUserRequest struct {
@@ -21,5 +20,5 @@ type CreateUserResponse struct {
 	Id        primitive.ObjectID `json:"id"`
 	Name      string             `json:"name"`
 	Email     string             `json:"email" bson:"email"`
-	CreatedAt time.Time          `json:"created_at" bson:"created_at"`
+	CreatedAt string             `json:"created_at"`
 }
