@@ -1,0 +1,52 @@
+basePath: /
+definitions:
+  model.CreateDriverRequest:
+    properties:
+      Latitude:
+        type: number
+      Longtitude:
+        type: number
+    type: object
+  model.WebResponse:
+    properties:
+      code:
+        type: integer
+      data: {}
+      status:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: BiTaksi
+  version: "2.0"
+paths:
+  /api/driver:
+    post:
+      consumes:
+      - application/json
+      description: Create a new driver
+      parameters:
+      - description: Add Driver
+        in: body
+        name: driver
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateDriverRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.WebResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.WebResponse'
+      summary: Show a driver
+swagger: "2.0"
