@@ -5,12 +5,12 @@ import (
 )
 
 type Driver struct {
-	Id          primitive.ObjectID
-	Latitude    float64
-	Longtitude  float64
-	HasCustomer bool
-	IsActive    bool
-	CreatedDate string
+	Id          primitive.ObjectID `bson:"_id,omitempty"`
+	Latitude    float64            `bson:"Latitude"`
+	Longtitude  float64            `bson:"Longtitude"`
+	HasCustomer bool               `bson:"HasCustomer"`
+	IsActive    bool               `bson:"IsActive"`
+	CreatedDate string             `bson:"CreatedDate"`
 }
 
 type CreateDriverRequest struct {
