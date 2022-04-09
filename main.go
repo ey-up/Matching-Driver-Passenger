@@ -49,6 +49,10 @@ func main() {
 	passengerController := controller.NewPassengerController(&passengerService)
 	passengerController.Route(app)
 
+	matcherRepository := repository.NewMatcherRepository(database)
+	matcherService := service.NewMatcherService(&matcherRepository)
+	matcherController := controller.NewMatcherController(&matcherService)
+	matcherController.Route(app)
 	//router.Route(app)
 
 	fmt.Println(viper.GetString("appName") + " app started port: " + viper.GetString("port"))

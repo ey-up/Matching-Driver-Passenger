@@ -1,8 +1,10 @@
 package service
 
 import (
+	"DriverLocation/db"
 	"DriverLocation/model"
 	"DriverLocation/repository"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"strconv"
 	"time"
 )
@@ -37,4 +39,9 @@ func (p passengerService) Create(request model.CreatePassengerRequest) (response
 		CreatedDate: passenger.CreatedDate,
 	}
 	return response
+}
+
+func UpdateHasDriverByPassengerId(id primitive.ObjectID) {
+	database := db.Connection()
+	repository.NewPassengerRepository(database).UpdateHasDriverByPassengerId(id)
 }
