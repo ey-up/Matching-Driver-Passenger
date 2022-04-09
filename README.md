@@ -28,3 +28,6 @@ localhost:8081 mongodb ui
 [PUT] /api/matcher/findDriver find the nearest driver to passenger 
 
 [PUT] /api/matcher match a passenger with a driver
+
+
+![image](https://user-images.githubusercontent.com/46713778/162590279-e1de0d67-4ab0-44f2-9b78-c98a19ec45bf.png)
