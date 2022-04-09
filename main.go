@@ -34,11 +34,6 @@ func main() {
 	app.Use(recover.New())
 	app.Get("/swagger/*", fiberSwagger.HandlerDefault)
 
-	userRepository := repository.NewUserRepository(database)
-	userService := service.NewUserService(&userRepository)
-	userController := controller.NewUserController(&userService)
-	userController.Route(app)
-
 	driverRepository := repository.NewDriverRepository(database)
 	driverService := service.NewDriverService(&driverRepository)
 	driverController := controller.NewDriverController(&driverService)
