@@ -2,6 +2,8 @@
 
 swag init
 
+go mod download
+
 docker-compose up
 
 localhost:8080/swagger
