@@ -7,4 +7,4 @@ database:
   port: 27017
   host: "mongo"
   name: "biTaksi"
-isLocal: true
+isLocal: false
