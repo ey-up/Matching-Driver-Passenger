@@ -45,7 +45,7 @@ func (matcherController MatcherController) Match(ctx *fiber.Ctx) error {
 }
 
 // FindTheNearestDriver ShowAccount godoc
-// @Summary Find driver
+// @Summary Find the nearest driver to passenger
 // @Tags Matcher
 // @Description Find the nearest driver to passenger
 // @Accept  json
