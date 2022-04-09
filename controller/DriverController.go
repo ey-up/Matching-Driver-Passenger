@@ -17,13 +17,14 @@ func NewDriverController(driverService *service.DriverService) DriverController 
 }
 
 func (driverController DriverController) Route(app *fiber.App) {
-	app.Put("/api/driver", driverController.InsertFromCsv)
 	app.Post("/api/driver", driverController.Create)
+	app.Put("/api/driver", driverController.InsertFromCsv)
 }
 
 // Create ShowAccount godoc
-// @Summary Show a driver
+// @Summary Create a driver
 // @Description Create a new driver
+// @Tags Driver
 // @Accept  json
 // @Param        driver  body      model.CreateDriverRequest  true  "Add Driver"
 // @Produce  json
@@ -48,9 +49,10 @@ func (driverController *DriverController) Create(ctx *fiber.Ctx) error {
 	})
 }
 
-// Create ShowAccount godoc
-// @Summary Show a driver
+// InsertFromCsv  ShowAccount godoc
+// @Summary Insert from csv
 // @Description Insert from csv
+// @Tags Driver
 // @Accept  json
 // @Produce  json
 // @Success 200 {object} model.WebResponse

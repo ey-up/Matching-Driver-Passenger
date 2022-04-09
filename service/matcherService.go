@@ -10,10 +10,16 @@ import (
 
 type MatcherService interface {
 	Match(primitive.ObjectID, primitive.ObjectID) primitive.ObjectID
+	GetAvailableDrivers(request model.FindDriverRequest) model.TheNearestDriverResponse
 }
 
 type matcherService struct {
 	matcherRepository repository.MatcherRepository
+}
+
+func (m matcherService) GetAvailableDrivers(passengerInfo model.FindDriverRequest) model.TheNearestDriverResponse {
+	driver := GetAvailableDrivers(passengerInfo)
+	return driver
 }
 
 func (m matcherService) Match(passengerId primitive.ObjectID, driverId primitive.ObjectID) primitive.ObjectID {

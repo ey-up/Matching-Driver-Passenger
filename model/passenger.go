@@ -10,7 +10,7 @@ type Passenger struct {
 	IsActive    bool               `bson:"IsActive"`
 	CreatedDate string             `bson:"CreatedDate"`
 }
-type FindDriverWithPassengerRequest struct {
+type FindDriverRequest struct {
 	Latitude   float64 `json:"latitude" validate:"required,max=180,min=-180"`
 	Longtitude float64 `json:"longtitude" validate:"required,max=90,min=-90"`
 }
