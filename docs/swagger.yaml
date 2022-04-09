@@ -2,10 +2,52 @@ basePath: /
 definitions:
   model.CreateDriverRequest:
     properties:
-      Latitude:
+      latitude:
+        maximum: 180
+        minimum: -180
         type: number
-      Longtitude:
+      longtitude:
+        maximum: 90
+        minimum: -90
         type: number
+    required:
+    - latitude
+    - longtitude
+    type: object
+  model.CreatePassengerRequest:
+    properties:
+      latitude:
+        maximum: 180
+        minimum: -180
+        type: number
+      longtitude:
+        maximum: 90
+        minimum: -90
+        type: number
+    required:
+    - latitude
+    - longtitude
+    type: object
+  model.FindDriverRequest:
+    properties:
+      latitude:
+        maximum: 180
+        minimum: -180
+        type: number
+      longtitude:
+        maximum: 90
+        minimum: -90
+        type: number
+    required:
+    - latitude
+    - longtitude
+    type: object
+  model.MatchRequest:
+    properties:
+      driverId:
+        type: string
+      passengerId:
+        type: string
     type: object
   model.WebResponse:
     properties:
@@ -48,5 +90,103 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/model.WebResponse'
-      summary: Show a driver
+      summary: Create a driver
+      tags:
+      - Driver
+    put:
+      consumes:
+      - application/json
+      description: Insert from csv
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.WebResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.WebResponse'
+      summary: Insert from csv
+      tags:
+      - Driver
+  /api/matcher:
+    put:
+      consumes:
+      - application/json
+      description: Matcher the passenger with the driver
+      parameters:
+      - description: PassengerId DriverId
+        in: body
+        name: passenger
+        required: true
+        schema:
+          $ref: '#/definitions/model.MatchRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.WebResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.WebResponse'
+      summary: Match a passenger with a driver
+      tags:
+      - Matcher
+  /api/matcher/findDriver:
+    put:
+      consumes:
+      - application/json
+      description: Find the nearest driver to passenger
+      parameters:
+      - description: PassengerId DriverId
+        in: body
+        name: passenger
+        required: true
+        schema:
+          $ref: '#/definitions/model.FindDriverRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.WebResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.WebResponse'
+      summary: Find driver
+      tags:
+      - Matcher
+  /api/passenger:
+    post:
+      consumes:
+      - application/json
+      description: Create a new passenger
+      parameters:
+      - description: Add Passenger
+        in: body
+        name: passenger
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreatePassengerRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.WebResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.WebResponse'
+      summary: Create a passenger
+      tags:
+      - Passenger
 swagger: "2.0"

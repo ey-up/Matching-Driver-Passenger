@@ -22,6 +22,33 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/api/driver": {
+            "put": {
+                "description": "Insert from csv",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Driver"
+                ],
+                "summary": "Insert from csv",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.WebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.WebResponse"
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "Create a new driver",
                 "consumes": [
@@ -30,7 +57,10 @@ const docTemplate = `{
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Show a driver",
+                "tags": [
+                    "Driver"
+                ],
+                "summary": "Create a driver",
                 "parameters": [
                     {
                         "description": "Add Driver",
@@ -57,17 +87,194 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/api/matcher": {
+            "put": {
+                "description": "Matcher the passenger with the driver",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Matcher"
+                ],
+                "summary": "Match a passenger with a driver",
+                "parameters": [
+                    {
+                        "description": "PassengerId DriverId",
+                        "name": "passenger",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.MatchRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.WebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/matcher/findDriver": {
+            "put": {
+                "description": "Find the nearest driver to passenger",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Matcher"
+                ],
+                "summary": "Find driver",
+                "parameters": [
+                    {
+                        "description": "PassengerId DriverId",
+                        "name": "passenger",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.FindDriverRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.WebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/passenger": {
+            "post": {
+                "description": "Create a new passenger",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Passenger"
+                ],
+                "summary": "Create a passenger",
+                "parameters": [
+                    {
+                        "description": "Add Passenger",
+                        "name": "passenger",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreatePassengerRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.WebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.WebResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
         "model.CreateDriverRequest": {
             "type": "object",
+            "required": [
+                "latitude",
+                "longtitude"
+            ],
             "properties": {
-                "Latitude": {
-                    "type": "number"
+                "latitude": {
+                    "type": "number",
+                    "maximum": 180,
+                    "minimum": -180
                 },
-                "Longtitude": {
-                    "type": "number"
+                "longtitude": {
+                    "type": "number",
+                    "maximum": 90,
+                    "minimum": -90
+                }
+            }
+        },
+        "model.CreatePassengerRequest": {
+            "type": "object",
+            "required": [
+                "latitude",
+                "longtitude"
+            ],
+            "properties": {
+                "latitude": {
+                    "type": "number",
+                    "maximum": 180,
+                    "minimum": -180
+                },
+                "longtitude": {
+                    "type": "number",
+                    "maximum": 90,
+                    "minimum": -90
+                }
+            }
+        },
+        "model.FindDriverRequest": {
+            "type": "object",
+            "required": [
+                "latitude",
+                "longtitude"
+            ],
+            "properties": {
+                "latitude": {
+                    "type": "number",
+                    "maximum": 180,
+                    "minimum": -180
+                },
+                "longtitude": {
+                    "type": "number",
+                    "maximum": 90,
+                    "minimum": -90
+                }
+            }
+        },
+        "model.MatchRequest": {
+            "type": "object",
+            "properties": {
+                "driverId": {
+                    "type": "string"
+                },
+                "passengerId": {
+                    "type": "string"
                 }
             }
         },
