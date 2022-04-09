@@ -44,6 +44,11 @@ func main() {
 	driverController := controller.NewDriverController(&driverService)
 	driverController.Route(app)
 
+	passengerRepository := repository.NewPassengerRepository(database)
+	passengerService := service.NewPassengerService(&passengerRepository)
+	passengerController := controller.NewPassengerController(&passengerService)
+	passengerController.Route(app)
+
 	//router.Route(app)
 
 	fmt.Println(viper.GetString("appName") + " app started port: " + viper.GetString("port"))
