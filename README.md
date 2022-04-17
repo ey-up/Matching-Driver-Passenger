@@ -9,7 +9,7 @@ want to run local golang project, just need mongodb instance in docker-compose a
 
 swag init
 
-go mod download
+go mod tiny
 
 -------------------------
 
